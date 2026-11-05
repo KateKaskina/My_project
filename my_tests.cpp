@@ -1,6 +1,70 @@
 #include <gtest/gtest.h>
 #include "main.h" 
 
+//Задача на сортировку на 2-х стеках(на вершине стека наименьшее значение, а на дне-наибольшее)
+template <typename T>
+void SortStack(Stack<T>& input) {
+    Stack<T> tmpStack; // вспомогательный стек, который автоматич. удалится при выходе
+    while (!input.IsEmpty()) {
+        T current = input.Pop();
+        while (!tmpStack.IsEmpty() && tmpStack[tmpStack.size() - 1] > current) {
+            T trappedElement = tmpStack.Pop();
+            input.Push(trappedElement);
+        }
+        tmpStack.Push(current);
+    }
+    while (!tmpStack.IsEmpty())
+        input.Push(tmpStack.Pop());
+
+}
+
+// ТЕСТЫ ДЛЯ СОРТИРОВКИ НА ДВУХ СТЕКАХ
+
+TEST(StackSortTest, EmptyAndSingleElement) {
+    Stack<int> st;
+    EXPECT_NO_THROW(SortStack(st));
+    EXPECT_TRUE(st.IsEmpty());
+
+    st.Push(42);
+    SortStack(st);
+    EXPECT_EQ(st.size(), 1);
+    EXPECT_EQ(st.Pop(), 42);
+}
+
+TEST(StackSortTest, GeneralSorting) {
+    Stack<int> st;
+    st.Push(34);
+    st.Push(3);
+    st.Push(31);
+    st.Push(98);
+    st.Push(92);
+    st.Push(23);
+
+    SortStack(st);
+
+    EXPECT_EQ(st.Pop(), 3);
+    EXPECT_EQ(st.Pop(), 23);
+    EXPECT_EQ(st.Pop(), 31);
+    EXPECT_EQ(st.Pop(), 34);
+    EXPECT_EQ(st.Pop(), 92);
+    EXPECT_EQ(st.Pop(), 98);
+    EXPECT_TRUE(st.IsEmpty());
+}
+
+TEST(StackSortTest, DuplicatesAndSorted) {
+    Stack<int> st;
+    st.Push(5);
+    st.Push(10);
+    st.Push(5);
+    st.Push(1);
+
+    SortStack(st);
+
+    EXPECT_EQ(st.Pop(), 1);
+    EXPECT_EQ(st.Pop(), 5);
+    EXPECT_EQ(st.Pop(), 5);
+    EXPECT_EQ(st.Pop(), 10);
+}
 
 // ТЕСТЫ ДЛЯ КЛАССА STACK
 
