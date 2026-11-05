@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/\u041a\u0430\u0442\u044f/My_project/build/cmake_install.cmake",
+		"C:/Users/\u041a\u0430\u0442\u044f/My_project/build/googletest-main/cmake_install.cmake",
+		"C:/Users/\u041a\u0430\u0442\u044f/My_project/build/googletest-main/googlemock/cmake_install.cmake",
+		"C:/Users/\u041a\u0430\u0442\u044f/My_project/build/googletest-main/googletest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
